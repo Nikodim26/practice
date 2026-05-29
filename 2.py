@@ -1,47 +1,25 @@
 import json
 
-str_json = '''[
-    {
-        "date": "2021-05-01",
-        "amount": 1000,
-        "currency": "USD",
-        "description": "Salary"
-    },
-    {
-        "date": "2021-05-02",
-        "amount": -50,
-        "currency": "EUR",
-        "description": "Dinner"
-    },
-    {
-        "date": "2021-05-03",
-        "amount": -20,
-        "currency": "USD",
-        "description": "Coffee"
-    },
-    {
-        "date": "2021-05-04",
-        "amount": 200,
-        "currency": "GBP",
-        "description": "Gift"
-    }
-]'''
-
 
 def my_decorator(fun):
     def wrapper(*args, **kwargs):
         result = fun(*args, **kwargs)
-        print(len(result))
+        report = f'Было {len(result)} транзакции суммарной стоимостью {sum([i['amount'] for i in result])}'
+        print(report)
         return result
 
     return wrapper
 
 
 @my_decorator
-def filters_transactions(json_str, currency):
-    str_filtered = list(filter(lambda x: x['currency'] == currency, json.loads(str_json)))
-    return json.dumps(str_filtered, indent=4)
+def filters_transactions(currency):
+    with open('data.json') as file:
+        obj_filtered = list(filter(lambda x: x['currency'] == currency, json.load(file)))
+
+    with open('data_filter.json', 'w') as file:
+        json.dump(obj_filtered, file, indent=4)
+    return obj_filtered
 
 
 if __name__ == '__main__':
-    print(filters_transactions(str_json, 'EUR'))
+    filters_transactions('USD')
