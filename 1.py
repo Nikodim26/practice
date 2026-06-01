@@ -15,3 +15,4 @@ def generate_users(first_names, last_names, cities):
 
 user = generate_users(first_names, last_names, cities)
 print(json.dumps([next(user) for i in range(3)], ensure_ascii=False, indent=4))
+print('полная жопа')
