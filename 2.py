@@ -22,4 +22,4 @@ def filters_transactions(currency):
 
 
 if __name__ == '__main__':
-    filters_transactions('USD')
+    filters_transactions('EUR')

@@ -12,7 +12,7 @@ def generate_users(first_names, last_names, cities):
         yield {'first_name': random.choice(first_names), 'last_name': random.choice(last_names),
                'age': random.randint(18, 65), 'city': random.choice(cities)}
 
-
-user = generate_users(first_names, last_names, cities)
-print(json.dumps([next(user) for i in range(3)], ensure_ascii=False, indent=4))
-print('полная жопа')
+if __name__ == '__main__':
+    user = generate_users(first_names, last_names, cities)
+    print(json.dumps([next(user) for i in range(3)], ensure_ascii=False, indent=4))
+    print(next(user))
